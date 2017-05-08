@@ -1,0 +1,101 @@
+{
+	"title": "PLISCuda",
+	"description": "PLISCuda: Parallel Leaping In Space on Cuda platform",
+	"long_description": "PLIS (Parallel Leaping In Space) is a parallel, spatial, stochastic algorithm for the simulation of reaction-diffusion systems.\n\nThe method is based on the Next Subvolume Method (NSM) and the Spatial Partitioned-Leaping Algorithm (SPLA), and was developed with the goal of being easily implemented and efficently run on a GPU-accelerated computing enviroment.\n\nPLISCuda is a Cuda/C++ PLIS implementation for the Nvidia CUDA GPGPU computing platform.",
+	"image": {
+		"src": "images/image.png",
+		"percentage_width": "200"
+	},
+	"logos": [{
+			"image": "http://img3.www.unimib.it/upload/pag/65914131/0/lo/logoist.jpg"
+		},
+		{
+			"image": "http://www.procedamus.it/images/CINECA.jpg"
+		}
+	],
+	"menu": [{
+		"name": "Home",
+		"url": "main"
+	}, {
+		"name": "Lavoro svolto",
+		"url": "work"
+	}],
+	"pages": [{
+		"title": "work",
+		"elements": [
+			[{
+				"title": "Lavoro svolto",
+				"width": "100",
+				"elements": [{
+						"type": "text",
+						"data": "Il lavoro è stato articolato in due fasi: è stata innanzitutto portata a termine l'implementazione del simulatore PLISCuda (il cui codice, al termine del lavoro di tesi, era ancora relativamente fragile e poco testato); in una fase successiva PLISCuda è stato testato su di un modello tratto dalla letteratura, andando in particolare a verificarne correttezza ed efficienza tramite confronto con un simulatore esistente."
+					}, {
+						"type": "text",
+						"data": "Obbiettivo della prima fase di lavoro è stato quello di rendere più robusto il codice C++/CUDA del simulatore. Sono stati applicati principi standard dell'ingegneria del software per il miglioramento del codice sorgente. Sono state introdotte suite di test e di benchmark per supportare lo sviluppo del codice. Sono stati corretti alcuni bug pre-esistenti emersi durante il procedere del lavoro. Segue una lista dettagliata degli interventi effettuati."
+					}, {
+						"type": "bullet_list",
+						"data": [
+							"Adattato il <tt>makefile</tt> per la compilazione su Galileo (Tesla K40) e effettuati test di verifica funzionamento su Galileo;",
+							"Consolidate alcune parti del codice (unite alcune procedure molto simili tra loro, rimossi frammenti di codice non più utilizzato);",
+							"Ridotto numero di parametri di input delle varie procedure introducendo <tt>struct</tt>s, fattorizzato il codice di conseguenza;",
+							"Riorganizzazione varia di alcuni aspetti del codice.",
+							"Implementato supporto per l'esecuzione di una suite di test per evitare regressioni durante il lavoro di sviluppo sul simulatore;",
+							"Implementati 6 semplici sistemi di test per la suite di test;",
+							"Implementato supporto per l'esecuzione di una suite di benchmark per evitare regressioni nelle performance del simulatore durante il lavoro di sviluppo;",
+							"Implementati 6 semplici modelli per la suite di benchmark;",
+							"Lavoro di miglioramento performance: riduzione del numero complessivo di accessi a memoria globale che ha portato ad un 10x velocità di simulazione sui benchmark implementati;",
+							"Introdotte delle cache per la memorizzazione di risultati di alcune computazioni ridondanti di valori che venivano ricalcolati ad ogni passo di simulazione;",
+							"Fix di bug vari;",
+							"Implementati test con supporto a tool <tt>memcheck</tt> e <tt>initcheck</tt> CUDA (per il controllo di accessi a memoria illegali);",
+							"Fix di alcuni bug di accesso alla memoria individuati da <tt>memcheck</tt> e <tt>initcheck</tt>;",
+							"Fix di un bug che causava simulazione nondeterministica anche in presenza di valori di seed fissati."
+						]
+					}, {
+						"type": "text",
+						"data": "Durante questa fase dello sviluppo è stato inoltre definito in maniera formale il formato dei file di input di PLISCuda (quelli contenenti, tra le altre cose, una descrizione del modello da simulare, della topologia dello spazio di simulazione, e i valori delle costanti di diffusione e reazione); è stato infine modificato il front-end del simulatore (che effettua il parsing di tali file) per adattarlo al nuovo formato."
+					}, {
+						"type": "text",
+						"data": "Terminato lo sviluppo del simulatore, è stato concordato l'inizio di una serie di test su di un sistema basato su un modello di Chemotaxis avente 62 reazioni e 60 specie chimiche"
+					}, {
+						"type": "text",
+						"data": "Sono stati implementati, per i test, un modello Chemotaxis per PLISCuda ed uno per Smoldyn. Smoldyn supporta la simulazione stocastica di sistemi spaziali tramite una implementazione seriale di NSM, e fornisce quindi un buon banco di prova per il confronto con PLISCuda."
+					}, {
+						"type": "text",
+						"data": "Il modello Chemotaxis per PLISCuda è stato anche utilizzato per effettuare un ulteriore lavoro di ottimizzazione sul codice PLISCuda (essendo notevolmente più complicato di quelli usati fino a quel punto per il tuning delle performance). Il lavoro di ottimizzazione ha reso PLISCuda fino ad un ordine di magnitudine più veloce su sistemi aventi decine di reazioni."
+					}, {
+						"type": "text",
+						"data": "Oltre ai modelli per i due simulatori, sono stati sviluppati alcuni script Octave da utilizzarsi per il parsing dei dati di output di PLISCuda. I modelli tipicamente simulati contengono svariate migliaia di molecole, ed i file di log di una simulazione, solitamente aventi dimensioni nell'ordine dei centinaia di MB, non possono essere analizzati a mano. Gli script Octave sono stati impiegati sia per il debugging del simulatore PLISCuda durante la fase di sviluppo, sia per l'analisi dei risultati delle simulazioni (compreso il processo di costruzione delle serie temporali da confrontare con quelle emesse da Smoldyn)."
+					}, {
+						"type": "text",
+						"data": "Implementati i modelli Chemotaxis per Smoldyn e PLISCuda, sono state effettuate delle simulazioni su Galileo. Il sistema è stato simulato per un tempo di evoluzione nel sistema dell'ordine di grandezza dei 1000s (tempo reale di simulazione approx. 1h) su CPU (per Smoldyn) e su una scheda Tesla K40 (per PLISCuda)."
+					}
+				]
+			}], [{
+				"title": "Conclusioni",
+				"width": "100",
+				"elements": [{
+					"type": "text",
+					"data": "La prima fase del progetto, iniziata con l'obbiettivo di completare lo sviluppo del simulatore PLISCuda, si è conclusa positivamente."
+				}, {
+					"type": "text",
+					"data": "È stato finalizzato il processo di definizione di un preciso formato di input; è stato implementato il parsing del formato nel front-end del simulatore; è stato riorganizzato e ripulito il codice C++/CUDA al nucleo del simulatore; è stato implementato il supporto per testing e benchmarking del codice; sono stati implementati 6 modelli di test e benchmarking per facilitare lo sviluppo del simulatore; sono stati eseguiti test con i tool memcheck e initcheck; sono stati corretti vari bug rilevati dai due tool e diversi altri bug emersi durante lo sviluppo. È stata inoltre sviluppata una suite di script Octave da utilizzare insieme al simulatore per l'analisi dei file di output delle simulazioni."
+				}, {
+					"type": "text",
+					"data": "La seconda fase del progetto, iniziata con l'obbiettivo di verificare la correttezza e l'efficienza delle simulazioni PLISCuda confrontandone i risultati con quelli ottenuti tramite l'impiego un simulatore già pubblicato e diffusamente utilizzato, si è conclusa con dei risultati solo  parzialmente positivi."
+				}, {
+					"type": "text",
+					"data": "PLISCuda è stato in grado di replicare fedelmente le tracce di simulazione (indicanti la traiettoria di evoluzione delle numerosità delle specie chimiche presenti nel sistema) generate da Smoldyn su sistema Chemotaxis in alcuni scenari; la corrispondenza è invece risultata essere meno precisa in altri casi. In particolare, non vi è stata alcuna difficoltà nel replicare i risultati forniti da Smoldyn nello scenario di sistemi tridimensionali aventi sotto-volumi di dimensioni unitarie, ma nel momento in cui si è andati ad aumentare il numero totale di sotto-volumi presenti nella topologia del sistema, diminuendo le dimensioni di ognuno di essi, abbiamo rilevato che le tracce di simulazione di Smoldyn e PLISCuda andavano divergendo. Più precisamente, nel caso di sistemi di grandi dimensioni e composti da un gran numero di (piccoli) sotto-volumi, la diffusione e l'attività reattiva delle molecole incluse nel sistema risultava rallentare progressivamente in PLISCuda, portando ad una forte diminuzione del numero di eventi di reazione e diffusione nello spazio, che non si registra invece nelle tracce di simulazione generate da Smoldyn."
+				}, {
+					"type": "text",
+					"data": "In seguito all'analisi dei risultati delle simulazioni l'ipotesi da noi avanzata è che PLISCuda gestisca in maniera non corretta lo <i>scaling</i> delle costanti di diffusione in presenza di cambiamenti nella dimensione dei sotto-volumi della topologia simulata. Le costanti di diffusione regolano e influenzano direttamente la propensità delle molecole presenti nel sistema a spostarsi nello spazio. È possibile che la maniera in cui l'algoritmo PLIS gestisce tali costanti di diffusione vada raffinata per consentire al simulatore di supportare topologie aventi sotto-volumi di dimensioni non unitarie e la maniera in cui le costanti scalano all'interno di una tale topologia."
+				}, {
+					"type": "text",
+					"data": "Anche nei sistemi correttamente simulati (ovvero quelli in cui le tracce di simulazione PLISCuda corrispondono a quelle generate da Smoldyn) non abbiamo rilevato lo speedup sperato nei tempi di calcolo. Sebbene Smoldyn sia certamente efficiente nell'esecuzione delle simulazioni (scritto in C++, e attivamente sviluppato e migliorato da diversi anni), la grande potenza computazionale parallela fornita dalle Tesla K40 e il fatto che PLIS fosse stato progettato fin dall'inizio per l'esecuzione su GPU ci autorizzavano a sperare in una consistente diminuzione dei tempi di simulazione (quando confrontati con quelli di  Smoldyn). Al contrario, i tempi di calcolo di PLISCuda sono risultati essere paragonabili a quelli di Smoldyn, che anzi è risultati essere in alcuni casi lievemente più rapido nella simulazione del sistema Chemotaxis."
+				}, {
+					"type": "text",
+					"data": "L'ipotesi da noi avanzata è che il sistema scelto per il confronto (Chemotaxis) non sia particolarmente adatto alla simulazione tramite PLIS. In particolare, il sistema presenta uno stato iniziale in cui un gran numero di molecole (nell'ordine di 10^6) è concentrato ad una delle estremità della topologia; mentre la gran parte dello spazio restante è quasi completamente vuota. Questo rappresenta un problema per i metodi che fanno uso di tecniche di leaping (come PLIS), perché la durata del passo di simulazione complessivo viene sempre scelta, nel caso di simulazioni spaziali, come la minore tra quelle di tutti i punti dello spazio; e in un sistema semi-vuoto come Chemotaxis i piccoli valori dello step imposti dai sotto-volumi vuoti impediscono l'utilizzo efficiente del leaping. PLISCuda è in grado di gestire situazioni come quella appena descritta, ma lo fa regredendo all'utilizzo di tecniche di evoluzione del sistema single-step (come in NSM), che rallentano l'evoluzione del sistema e parallelizzano male."
+				}]
+			}]
+		]
+	}]
+}
